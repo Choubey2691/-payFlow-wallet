@@ -7,6 +7,9 @@ const connectDB = require("./config/db");
 
 const app = express();
 
+// Trust proxy required for Render deployments to ensure rate limiting works on client IPs instead of the proxy IP
+app.set("trust proxy", 1);
+
 // Security Middlewares
 app.use(helmet()); // Set security HTTP headers
 
