@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'production' 
-    ? 'https://payment-app-backend.onrender.com/api' 
-    : 'http://localhost:5000/api'),
+  baseURL: import.meta.env.VITE_API_URL || 'https://payflow-wallet-1.onrender.com/api',
 });
 
 api.interceptors.request.use(

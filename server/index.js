@@ -10,9 +10,9 @@ const app = express();
 // Security Middlewares
 app.use(helmet()); // Set security HTTP headers
 
-// Strict CORS: Allow frontend URL from env or localhost for dev
+// Enable CORS dynamically for the frontend
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:5174",
+  origin: true, // Dynamically reflects origin so credentials can be sent from anywhere
   credentials: true,
   optionsSuccessStatus: 200
 };
