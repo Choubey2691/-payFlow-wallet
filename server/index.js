@@ -65,3 +65,7 @@ server.on('error', (error) => {
     process.exit(1);
   }
 });
+
+// Export the app for Vercel Serverless
+module.exports = app;
+
