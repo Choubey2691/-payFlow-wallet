@@ -41,7 +41,8 @@ const registerUser = async (req, res) => {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("REGISTER API FATAL ERROR:", error);
+    res.status(500).json({ message: error.message || "Unknown Internal Server Error", details: error });
   }
 };
 
