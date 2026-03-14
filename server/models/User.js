@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String,
         unique: true,
-        sparse: true, // sparse allows multiple null/undefined values if early users don't have it
+        sparse: true,
     },
     password: {
         type: String,
@@ -22,17 +22,28 @@ const userSchema = new mongoose.Schema({
     },
     balance: {
         type: Number,
-        default: 0,
+        default: 1000,
+        min: 0,
     },
+    dailyTransferUsed: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    lastTransferReset: {
+        type: Date,
+        default: Date.now,
+    }
 }, { timestamps: true });
 
 // Hash password before saving
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
-        return;
+        return next();
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 // Match user entered password to hashed password in database

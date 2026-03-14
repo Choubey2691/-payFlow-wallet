@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/payment-app");
-    console.log("MongoDB Connected Successfully");
+    const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/payment-app";
+    await mongoose.connect(mongoUri);
+    console.log(`MongoDB Connected Successfully: ${mongoose.connection.host}`);
   } catch (error) {
     console.log("DB Error:", error);
     process.exit(1);
